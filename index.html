@@ -18,7 +18,7 @@
           if (prop === 'withSuccessHandler') return function (fn) { return createRunner(typeof fn === 'function' ? fn : null, failureHandler, userObject); };
           if (prop === 'withFailureHandler') return function (fn) { return createRunner(successHandler, typeof fn === 'function' ? fn : null, userObject); };
           if (prop === 'withUserObject') return function (obj) { return createRunner(successHandler, failureHandler, obj); };
-          if (prop === 'toString') return function () { return '[siMADU API Runner]'; };
+          if (prop === 'toString') return function () { return '[siMADA API Runner]'; };
           if (typeof prop !== 'string' || prop.charAt(0) === '_' || prop === 'then') return undefined;
           return function () {
             var args = Array.prototype.slice.call(arguments);
@@ -36,7 +36,7 @@
                 try { data = JSON.parse(raw); }
                 catch (_) {
                   var preview = String(raw || '').replace(/\s+/g, ' ').slice(0, 180);
-                  throw new Error('API siMADU mengembalikan respons non-JSON (HTTP ' + response.status + '). Periksa deployment Vercel pada /api/masda. ' + preview);
+                  throw new Error('API siMADA mengembalikan respons non-JSON (HTTP ' + response.status + '). Periksa deployment Vercel pada /api/masda. ' + preview);
                 }
                 if (!response.ok) throw new Error((data && data.message) || ('Permintaan API gagal (HTTP ' + response.status + ').'));
                 if (data && data.__masdaRpcError) throw new Error(data.message || 'Permintaan API gagal.');
@@ -46,7 +46,7 @@
               if (successHandler) successHandler(result, userObject);
             }).catch(function (error) {
               if (failureHandler) failureHandler({ message: error && error.message ? error.message : String(error) }, userObject);
-              else console.error('[siMADU API]', prop, error);
+              else console.error('[siMADA API]', prop, error);
             });
           };
         }
@@ -64,12 +64,12 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="siMADU">
+  <meta name="apple-mobile-web-app-title" content="siMADA">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  <title>siMADU — Sistem Manajemen MAS Darul Ulum</title>
+  <title>siMADA — Sistem Manajemen MAS Darul Amin</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -313,7 +313,7 @@
     }
   .website-tile:hover{transform:translateY(-4px);box-shadow:0 1rem 2rem rgba(15,23,42,.10)!important}
 
-    /* Notifikasi bawaan aplikasi siMADU */
+    /* Notifikasi bawaan aplikasi siMADA */
     #appNotificationStack{position:fixed;right:18px;top:18px;z-index:20000;display:flex;flex-direction:column;gap:10px;width:min(390px,calc(100vw - 28px));pointer-events:none}
     .app-notification{pointer-events:auto;display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 15px;box-shadow:0 14px 40px rgba(15,23,42,.18);animation:appToastIn .22s ease-out;overflow:hidden;position:relative}
     .app-notification:after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--toast-color,#0284c7)}
@@ -343,7 +343,7 @@
 
 
 
-    /* Loading screen siMADU: ringan, responsif, dan terpisah dari Bootstrap modal. */
+    /* Loading screen siMADA: ringan, responsif, dan terpisah dari Bootstrap modal. */
     #masdaLoadingScreen{position:fixed;inset:0;z-index:2147482000;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at 50% 35%,#263449 0%,#111827 58%,#0b1220 100%);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease;color:#eaf3ff}
     #masdaLoadingScreen.is-active{opacity:1;visibility:visible;pointer-events:auto}
     #masdaLoadingScreen .loader-panel{width:min(100%,390px);min-height:236px;padding:34px 26px 26px;border:1px solid rgba(148,163,184,.18);border-radius:20px;background:rgba(15,23,42,.78);box-shadow:0 24px 70px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035);text-align:center;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
@@ -400,7 +400,7 @@
 
 
     /* =========================================================
-       siMADU UI REFRESH — dashboard & data master
+       siMADA UI REFRESH — dashboard & data master
        CSS-only overrides: tidak mengubah ID, data, atau fungsi JS.
        ========================================================= */
     :root {
@@ -560,7 +560,7 @@
     }
 
 
-    /* Gradient siMADU: lebih hidup seperti pratinjau, diterapkan konsisten pada seluruh area halaman. */
+    /* Gradient siMADA: lebih hidup seperti pratinjau, diterapkan konsisten pada seluruh area halaman. */
     #mainApp > .row > .col-md-9 {
       min-height:calc(100vh - 64px);
       background:radial-gradient(ellipse at 2% 18%,rgba(47,202,239,.48) 0%,rgba(47,202,239,0) 36%),radial-gradient(ellipse at 98% 22%,rgba(82,132,255,.38) 0%,rgba(82,132,255,0) 38%),radial-gradient(ellipse at 88% 96%,rgba(43,220,174,.42) 0%,rgba(43,220,174,0) 40%),linear-gradient(145deg,#e8f7ff 0%,#f2f5ff 46%,#e7fff5 100%);
@@ -750,7 +750,7 @@
 
 
 <style>
-/* Halaman publik siMADU - desain mengikuti referensi Madrasah */
+/* Halaman publik siMADA - desain mengikuti referensi Madrasah */
 #publicHomePage{min-height:100vh;background:#f5f8fc;color:#14213d;font-family:inherit;overflow:hidden}
 #publicHomePage *{box-sizing:border-box}
 .public-home-topbar{min-height:32px;background:#00695c;color:#fff;padding:6px clamp(16px,5vw,76px);display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;font-weight:700}
@@ -905,7 +905,7 @@
 
 
 <style id="masda-homepage-redesign">
-/* Halaman awal siMADU — desain responsif, tanpa mengubah layanan autentikasi */
+/* Halaman awal siMADA — desain responsif, tanpa mengubah layanan autentikasi */
 #publicHomePage.masda-home-redesign{min-height:100vh;background:#f4f8ff;display:flex;flex-direction:column;overflow:hidden}
 .masda-home-header{width:100%;min-height:76px;padding:10px clamp(18px,4vw,64px);display:flex;align-items:center;gap:24px;background:#fff;border-bottom:1px solid #e6edf7;box-shadow:0 3px 14px rgba(15,35,75,.06);position:relative;z-index:5}
 .masda-home-header .public-home-brand{flex:0 0 auto;min-width:210px}
@@ -989,7 +989,7 @@
  .masda-home-login-shell{padding:18px 15px}
 }
 
-/* ===== siMADU Login Landing Page: final approved blue-gold layout ===== */
+/* ===== siMADA Login Landing Page: final approved blue-gold layout ===== */
 #publicHomePage.masda-public-home{min-height:100vh;background:#eaf5ff;color:#17345f}
 #publicHomePage .masda-home-header{min-height:74px;background:rgba(255,255,255,.97);padding:10px clamp(16px,3.5vw,58px);gap:18px;box-shadow:0 5px 20px rgba(20,55,100,.06)}
 #publicHomePage .public-home-brand{min-width:235px}
@@ -1064,7 +1064,7 @@
 
 
 <style id="simada-login-tech-final">
-/* Halaman awal siMADU: latar teknologi, kartu login neon, dan logo dinamis */
+/* Halaman awal siMADA: latar teknologi, kartu login neon, dan logo dinamis */
 #publicHomePage.masda-public-home{
   min-height:100vh;
   background:#071329;
@@ -1386,14 +1386,14 @@
   <div class="loader-panel">
     <div class="loader-logo-wrap" id="masdaLoaderLogoWrap"><div class="loader-logo-fallback"><i class="bi bi-mortarboard-fill"></i></div></div>
     <div class="loader-status"><span class="loader-status-dot"></span><span id="masdaLoadingStatus">Menyiapkan aplikasi</span></div>
-    <h2 id="masdaLoadingTitle">siMADU</h2>
+    <h2 id="masdaLoadingTitle">siMADA</h2>
     <p id="masdaLoadingDescription">Menyiapkan pengalaman kerja yang lebih mudah dan terintegrasi.</p>
     <div class="loader-track" aria-hidden="true"><span></span></div>
   </div>
 </div>
 
 
-<!-- HALAMAN AWAL PUBLIK siMADU -->
+<!-- HALAMAN AWAL PUBLIK siMADA -->
 <section id="publicHomePage" class="masda-public-home masda-home-redesign">
   <header class="public-home-nav masda-home-header">
     <a href="#publicHomePage" class="public-home-brand text-decoration-none" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
@@ -1422,7 +1422,7 @@
     <div class="masda-home-login-shell">
       <div class="masda-home-login-heading">
         <img id="loginBrandLogo" src="" alt="Logo Madrasah" class="masda-login-brand-logo">
-        <div class="masda-login-brand-copy"><strong>siMADU</strong><small>Sistem Management MAS Darul Ulum</small></div>
+        <div class="masda-login-brand-copy"><strong>siMADA</strong><small>Sistem Management MAS Darul Amin</small></div>
       </div>
       <div class="masda-login-welcome-title"><span></span><strong>Selamat Datang!</strong><span></span></div>
       
@@ -1432,8 +1432,8 @@
     <div class="card login-card p-4 bg-white">
       <div class="text-center mb-4 masda-login-legacy-brand">
         <div id="loginLogoContainer" class="mb-2"></div>
-        <h4 class="fw-bold text-dark" id="loginSchoolName">siMADU</h4>
-        <p class="text-muted small">MAS Darul Ulum</p>
+        <h4 class="fw-bold text-dark" id="loginSchoolName">siMADA</h4>
+        <p class="text-muted small">MAS Darul Amin</p>
         <div id="loginPortalBadge" class="login-portal-badge"><i class="bi bi-shield-check me-1"></i>Portal Guru &amp; Staf</div>
       </div>
       
@@ -1456,7 +1456,7 @@
         <header class="masda-scan-header">
           <div class="masda-scan-brand">
             <div class="masda-scan-brand-icon"><i class="bi bi-upc-scan"></i></div>
-            <div><div class="masda-scan-brand-title">Layanan Cepat Absen Masuk / Pulang Siswa</div><div class="masda-scan-brand-subtitle">MAS Darul Ulum — Absensi Tanpa Login</div></div>
+            <div><div class="masda-scan-brand-title">Layanan Cepat Absen Masuk / Pulang Siswa</div><div class="masda-scan-brand-subtitle">MAS Darul Amin — Absensi Tanpa Login</div></div>
           </div>
           <div class="masda-scan-nav">
             <button type="button" class="masda-scan-back" onclick="stopLoginQrScanner()"><i class="bi bi-arrow-left"></i> Kembali ke Login Siswa</button>
@@ -1515,12 +1515,12 @@
   <div class="mobile-topbar-fixed d-md-none p-2 px-3 d-flex justify-content-between align-items-center no-print sticky-top">
     <div class="d-flex align-items-center gap-2" style="min-width:0">
       <button class="btn btn-outline-secondary btn-sm py-1 px-2 mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-label="Buka menu"><i class="bi bi-list fs-5"></i></button>
-      <img id="mobileAppLogo" class="mobile-brand-logo" alt="Logo siMADU" src="" style="display:none">
-      <span class="fw-bold fs-6 text-truncate" style="max-width: 180px;" id="mobileSchoolName">siMADU</span>
+      <img id="mobileAppLogo" class="mobile-brand-logo" alt="Logo siMADA" src="" style="display:none">
+      <span class="fw-bold fs-6 text-truncate" style="max-width: 180px;" id="mobileSchoolName">siMADA</span>
     </div>
     <div class="d-flex align-items-center gap-2">
       <small class="badge bg-info text-dark" id="mobileUserRoleBadge">Administrator</small>
-      <button class="mobile-logout-btn" id="pwaInstallButton" type="button" onclick="installSiMADAApp()" aria-label="Install siMADU" title="Install siMADU"><i class="bi bi-download"></i></button>
+      <button class="mobile-logout-btn" id="pwaInstallButton" type="button" onclick="installSiMADAApp()" aria-label="Install siMADA" title="Install siMADA"><i class="bi bi-download"></i></button>
       <button class="mobile-logout-btn" type="button" onclick="logout(event)" aria-label="Keluar" title="Keluar"><i class="bi bi-box-arrow-right"></i></button>
     </div>
   </div>
@@ -1532,7 +1532,7 @@
         
         <!-- HEADER OFFCANVAS HP -->
         <div class="offcanvas-header d-md-none text-white border-bottom border-secondary pb-2 mb-3">
-          <h5 class="offcanvas-title fw-bold d-flex align-items-center" id="sidebarMenuLabel"><img id="sidebarMobileLogo" src="" alt="Logo siMADU" style="display:none;width:30px;height:30px;object-fit:contain;margin-right:10px;border-radius:7px"> siMADU</h5>
+          <h5 class="offcanvas-title fw-bold d-flex align-items-center" id="sidebarMenuLabel"><img id="sidebarMobileLogo" src="" alt="Logo siMADA" style="display:none;width:30px;height:30px;object-fit:contain;margin-right:10px;border-radius:7px"> siMADA</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
         </div>
 
@@ -1541,7 +1541,7 @@
             <i class="bi bi-mortarboard-fill text-info fs-3"></i>
           </div>
           <div>
-            <h6 class="fw-bold mb-0 text-white" id="sidebarSchoolName">siMADU</h6>
+            <h6 class="fw-bold mb-0 text-white" id="sidebarSchoolName">siMADA</h6>
             <small class="text-info fs-7" id="userRoleBadge">Administrator</small>
           </div>
         </div>
@@ -1578,9 +1578,9 @@
         <div class="print-header-inner">
           <img id="printSchoolLogo" class="print-school-logo" alt="Logo Madrasah" style="display:none">
           <div class="print-header-text">
-            <h3 class="print-school-title" id="printSchoolTitle">siMADU</h3>
+            <h3 class="print-school-title" id="printSchoolTitle">siMADA</h3>
             <div id="printSchoolSubtitle" class="print-school-subtitle"></div>
-            <div id="printSchoolTagline" class="print-school-tagline">siMADU — Sistem Manajemen</div>
+            <div id="printSchoolTagline" class="print-school-tagline">siMADA — Sistem Manajemen</div>
           </div>
         </div>
         <hr style="border-top: 2px solid #000;">
@@ -2378,7 +2378,7 @@
                 <div class="wa-qr-stage flex-grow-1"><div><div class="rounded-4 bg-light p-3 d-inline-block mb-3" id="waQrIconWrap"><i class="bi bi-phone fs-1 text-secondary" id="waQrIcon"></i></div><h6 class="fw-bold" id="waQrTitle">Tautkan nomor WhatsApp pengirim</h6><p class="wa-muted mb-0" id="waQrDescription">Simpan token API Fonnte terlebih dahulu pada tab Template Pesan &amp; Uji Coba, kemudian tekan tombol Tampilkan Kode QR WhatsApp.</p><div id="waQrOutput" class="mt-3"></div></div></div>
                 <div class="mt-3 d-flex flex-wrap gap-2"><button class="wa-btn" type="button" onclick="showWhatsAppQr()"><i class="bi bi-qr-code me-2"></i>Tampilkan Kode QR WhatsApp</button><button class="btn btn-light border" type="button" onclick="loadWaGateway()" title="Segarkan status"><i class="bi bi-arrow-clockwise me-1"></i>Segarkan</button><a class="wa-btn d-inline-block text-decoration-none" href="https://md.fonnte.com/" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right me-2"></i>Buka Dashboard Fonnte</a></div>
               </div></div>
-              <div class="col-lg-5"><div class="wa-box mb-3"><h6 class="fw-bold mb-3"><i class="bi bi-info-circle text-success me-2"></i>Panduan Menautkan WhatsApp Madrasah</h6><ol class="small text-secondary ps-3 mb-3"><li class="mb-2">Buka dashboard provider WhatsApp dan masuk ke akun Madrasah.</li><li class="mb-2">Tautkan perangkat/nomor pengirim sesuai instruksi provider (misalnya dengan scan QR di dashboard).</li><li class="mb-2">Salin token API provider dan simpan pada tab <b>Template Pesan &amp; Uji Coba</b>.</li><li class="mb-2">Isi nomor WhatsApp wali siswa di Data Master → Master Siswa.</li><li>Uji pengiriman sebelum menggunakan notifikasi otomatis.</li></ol><div class="alert alert-warning small mb-0"><b>Cara kerja otomatis:</b><br>Setelah siswa melakukan absensi masuk/pulang, siMADU mengirim pesan ke nomor wali melalui API jika token aktif dan nomor wali tersedia.</div></div>
+              <div class="col-lg-5"><div class="wa-box mb-3"><h6 class="fw-bold mb-3"><i class="bi bi-info-circle text-success me-2"></i>Panduan Menautkan WhatsApp Madrasah</h6><ol class="small text-secondary ps-3 mb-3"><li class="mb-2">Buka dashboard provider WhatsApp dan masuk ke akun Madrasah.</li><li class="mb-2">Tautkan perangkat/nomor pengirim sesuai instruksi provider (misalnya dengan scan QR di dashboard).</li><li class="mb-2">Salin token API provider dan simpan pada tab <b>Template Pesan &amp; Uji Coba</b>.</li><li class="mb-2">Isi nomor WhatsApp wali siswa di Data Master → Master Siswa.</li><li>Uji pengiriman sebelum menggunakan notifikasi otomatis.</li></ol><div class="alert alert-warning small mb-0"><b>Cara kerja otomatis:</b><br>Setelah siswa melakukan absensi masuk/pulang, siMADA mengirim pesan ke nomor wali melalui API jika token aktif dan nomor wali tersedia.</div></div>
                 <div class="wa-box"><h6 class="fw-bold mb-3">Pengaturan Cepat Pengiriman Otomatis</h6><div class="wa-switch-card mb-2"><div><b class="small">Kirim WA saat Absen Masuk</b><small>Notifikasi ketika siswa tiba di madrasah</small></div><input class="form-check-input" type="checkbox" id="waSendMasuk" checked></div><div class="wa-switch-card"><div><b class="small">Kirim WA saat Absen Pulang</b><small>Notifikasi ketika siswa pulang</small></div><input class="form-check-input" type="checkbox" id="waSendPulang" checked></div><button class="wa-btn w-100 mt-3" onclick="saveWaQuickSettings()">Simpan Pengaturan Otomatis</button></div>
               </div>
             </div>
@@ -3195,7 +3195,7 @@
     document.getElementById('masdaLoadingDescription').textContent = customDescription || msg[1];
     var wrap = document.getElementById('masdaLoaderLogoWrap');
     var logo = document.querySelector('#sidebarLogoContainer img, #loginLogoContainer img');
-    if (logo && logo.src) wrap.innerHTML = '<img class="loader-logo" alt="Logo siMADU" src="' + logo.src.replace(/"/g, '&quot;') + '">';
+    if (logo && logo.src) wrap.innerHTML = '<img class="loader-logo" alt="Logo siMADA" src="' + logo.src.replace(/"/g, '&quot;') + '">';
     else wrap.innerHTML = '<div class="loader-logo-fallback"><i class="bi bi-mortarboard-fill"></i></div>';
     overlay.classList.add('is-active');
     overlay.setAttribute('aria-hidden', 'false');
@@ -3696,7 +3696,7 @@
   async function logout(e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
     try {
-      var confirmed = window.confirm('Apakah Anda yakin ingin keluar dari aplikasi siMADU?');
+      var confirmed = window.confirm('Apakah Anda yakin ingin keluar dari aplikasi siMADA?');
       if (!confirmed) return;
 
       // Logout bersifat lokal seperti alur aplikasi sebelumnya; reset seluruh status sesi UI.
@@ -3863,7 +3863,7 @@
         renderChartSarprasPie(data.sarpras.baik, data.sarpras.ringan, data.sarpras.berat);
       }
     }).withFailureHandler(function(err) {
-      console.error('[siMADU dashboard]', err);
+      console.error('[siMADA dashboard]', err);
       appNotify('Dashboard belum dapat diperbarui: ' + (err && err.message ? err.message : err), 'error');
     }).getDashboardSummary();
   }
@@ -3937,7 +3937,7 @@
         var loginLogo = document.getElementById('loginLogoContainer');
         if (loginLogo) loginLogo.innerHTML = '<img src="' + src.replace(/"/g, '&quot;') + '" class="login-logo-img rounded" alt="Logo Madrasah" onerror="this.style.display=\'none\'">';
         var loaderWrap = document.getElementById('masdaLoaderLogoWrap');
-        if (loaderWrap) loaderWrap.innerHTML = '<img class="loader-logo" alt="Logo siMADU" src="' + src.replace(/"/g, '&quot;') + '">';
+        if (loaderWrap) loaderWrap.innerHTML = '<img class="loader-logo" alt="Logo siMADA" src="' + src.replace(/"/g, '&quot;') + '">';
       })
       .withFailureHandler(function(err) { console.warn('Logo Madrasah belum dapat dimuat:', err); })
       .getProfil();
@@ -3949,10 +3949,10 @@
       updatePrintSchoolBranding();
       // Nama merek aplikasi konsisten untuk semua peran pengguna.
       // Nama resmi Madrasah tetap disimpan dan ditampilkan pada formulir Profil Madrasah.
-      document.getElementById('loginSchoolName').innerText = 'siMADU';
-      document.getElementById('mobileSchoolName').innerText = 'siMADU';
-      document.getElementById('sidebarSchoolName').innerText = 'siMADU';
-      document.getElementById('printSchoolTitle').innerText = 'siMADU';
+      document.getElementById('loginSchoolName').innerText = 'siMADA';
+      document.getElementById('mobileSchoolName').innerText = 'siMADA';
+      document.getElementById('sidebarSchoolName').innerText = 'siMADA';
+      document.getElementById('printSchoolTitle').innerText = 'siMADA';
 
       document.getElementById('profNama').value = p['Nama Madrasah'] || '';
       document.getElementById('profNism').value = p['NISM'] || '';
@@ -3974,12 +3974,7 @@
         document.getElementById('profLogoBase64').value = p['Logo'];
         document.getElementById('imgLogoPreview').src = p['Logo'];
         document.getElementById('logoPreviewContainer').classList.remove('d-none');
-        document.getElementById('loginLogoContainer').innerHTML = '<img src="' + p['Logo'] + '" class="login-logo-img rounded" alt="Logo">';
-        document.getElementById('sidebarLogoContainer').innerHTML = '<img src="' + p['Logo'] + '" class="brand-logo-img rounded" alt="Logo">';
-        var mobileLogo = document.getElementById('mobileAppLogo');
-        if (mobileLogo) { mobileLogo.src = p['Logo']; mobileLogo.style.display = 'block'; }
-        var sidebarMobileLogo = document.getElementById('sidebarMobileLogo');
-        if (sidebarMobileLogo) { sidebarMobileLogo.src = p['Logo']; sidebarMobileLogo.style.display = 'block'; }
+        applySchoolLogoEverywhere(p);
       }
 
       initSchoolMap(lat, lng, rad);
@@ -4077,6 +4072,10 @@
     google.script.run.withSuccessHandler(function(res) {
       appNotify(res);
       loadProfilData();
+      // Ambil ulang profil untuk menyegarkan logo navbar halaman awal.
+      if (window.google && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(applySchoolLogoEverywhere).getProfil();
+      }
     }).simpanProfil(data);
   }
 
@@ -5868,10 +5867,10 @@
     var title = document.getElementById('printSchoolTitle');
     var sub = document.getElementById('printSchoolSubtitle');
     var tagline = document.getElementById('printSchoolTagline');
-    var schoolName = p['Nama Madrasah'] || 'MAS Darul Ulum';
+    var schoolName = p['Nama Madrasah'] || 'MAS Darul Amin';
     if (title) title.textContent = schoolName;
     if (sub) sub.textContent = [p['NISM'] ? 'NISM: ' + p['NISM'] : '', p['NPSN'] ? 'NPSN: ' + p['NPSN'] : ''].filter(Boolean).join('  |  ');
-    if (tagline) tagline.textContent = 'siMADU — Sistem Manajemen ' + schoolName;
+    if (tagline) tagline.textContent = 'siMADA — Sistem Manajemen ' + schoolName;
   }
 
   // Dropdown ini sengaja dipilih manual oleh admin setiap akan mencetak/mengekspor Sarpras.
@@ -5949,12 +5948,12 @@
       }
     } catch (e) { console.warn('Logo tidak dapat dimasukkan ke PDF:', e); }
     doc.setFontSize(13);
-    doc.text(String(p['Nama Madrasah'] || 'siMADU'), pageW / 2, headerY, { align: 'center' });
+    doc.text(String(p['Nama Madrasah'] || 'siMADA'), pageW / 2, headerY, { align: 'center' });
     doc.setFontSize(9);
     var ident = [p['NISM'] ? 'NISM: ' + p['NISM'] : '', p['NPSN'] ? 'NPSN: ' + p['NPSN'] : ''].filter(Boolean).join(' | ');
     if (ident) doc.text(ident, pageW / 2, headerY + 6, { align: 'center' });
     doc.setFontSize(9);
-    doc.text('siMADU — Sistem Manajemen ' + String(p['Nama Madrasah'] || 'MAS Darul Ulum'), pageW / 2, headerY + 12, { align: 'center' });
+    doc.text('siMADA — Sistem Manajemen ' + String(p['Nama Madrasah'] || 'MAS Darul Amin'), pageW / 2, headerY + 12, { align: 'center' });
     doc.setLineWidth(0.5);
     doc.line(14, 29, pageW - 14, 29);
     doc.setFontSize(11);
@@ -6134,11 +6133,11 @@
 
   // WhatsApp Gateway UI: tab, template, test, and history.
   var waTestMode='masuk';
-  var waDefaultMasuk='Assalamu’alaikum Wr. Wb.\nYth. Bapak/Ibu Wali dari *{nama}* (NISN: {nisn} / Kelas: {kelas}).\n\nMenginformasikan bahwa putra/putri Bapak/Ibu telah melakukan *ABSEN MASUK* di *{Madrasah}* pada:\n📅 Tanggal: {tanggal}\n⏰ Waktu: {jam} WIB\n✅ Status: {status}\n\nTerima kasih.\n— siMADU';
-  var waDefaultPulang='Assalamu’alaikum Wr. Wb.\nYth. Bapak/Ibu Wali dari *{nama}* (NISN: {nisn} / Kelas: {kelas}).\n\nMenginformasikan bahwa putra/putri Bapak/Ibu telah melakukan *ABSEN PULANG* dari *{Madrasah}* pada:\n📅 Tanggal: {tanggal}\n⏰ Waktu: {jam} WIB\n✅ Status: {status}\n\nTerima kasih.\n— siMADU';
-  var waDefaultGuruMasuk='🔔 *NOTIFIKASI ABSENSI GURU*\n\nNama: *{nama}*\nNIP: {nip}\nTanggal: {tanggal}\nJam Masuk: {jam} WIB\nStatus: *{status}*\nJarak: {jarak} meter\nMetode: {metode}\nPetugas: {petugas}\n\n{madrasah} — siMADU';
-  var waDefaultGuruPulang='🔔 *NOTIFIKASI ABSENSI PULANG GURU*\n\nNama: *{nama}*\nNIP: {nip}\nTanggal: {tanggal}\nJam Pulang: {jam} WIB\nStatus: *{status}*\nJarak: {jarak} meter\nMetode: {metode}\nPetugas: {petugas}\n\n{madrasah} — siMADU';
-  var waDefaultDhuha='Assalamu’alaikum Wr. Wb.\nYth. Bapak/Ibu Wali dari *{nama}*.\n\nKami informasikan bahwa ananda pada tanggal {tanggal} *{status} {ibadah}*.\nKelas: {kelas}\n— siMADU';
+  var waDefaultMasuk='Assalamu’alaikum Wr. Wb.\nYth. Bapak/Ibu Wali dari *{nama}* (NISN: {nisn} / Kelas: {kelas}).\n\nMenginformasikan bahwa putra/putri Bapak/Ibu telah melakukan *ABSEN MASUK* di *{Madrasah}* pada:\n📅 Tanggal: {tanggal}\n⏰ Waktu: {jam} WIB\n✅ Status: {status}\n\nTerima kasih.\n— siMADA';
+  var waDefaultPulang='Assalamu’alaikum Wr. Wb.\nYth. Bapak/Ibu Wali dari *{nama}* (NISN: {nisn} / Kelas: {kelas}).\n\nMenginformasikan bahwa putra/putri Bapak/Ibu telah melakukan *ABSEN PULANG* dari *{Madrasah}* pada:\n📅 Tanggal: {tanggal}\n⏰ Waktu: {jam} WIB\n✅ Status: {status}\n\nTerima kasih.\n— siMADA';
+  var waDefaultGuruMasuk='🔔 *NOTIFIKASI ABSENSI GURU*\n\nNama: *{nama}*\nNIP: {nip}\nTanggal: {tanggal}\nJam Masuk: {jam} WIB\nStatus: *{status}*\nJarak: {jarak} meter\nMetode: {metode}\nPetugas: {petugas}\n\n{madrasah} — siMADA';
+  var waDefaultGuruPulang='🔔 *NOTIFIKASI ABSENSI PULANG GURU*\n\nNama: *{nama}*\nNIP: {nip}\nTanggal: {tanggal}\nJam Pulang: {jam} WIB\nStatus: *{status}*\nJarak: {jarak} meter\nMetode: {metode}\nPetugas: {petugas}\n\n{madrasah} — siMADA';
+  var waDefaultDhuha='Assalamu’alaikum Wr. Wb.\nYth. Bapak/Ibu Wali dari *{nama}*.\n\nKami informasikan bahwa ananda pada tanggal {tanggal} *{status} {ibadah}*.\nKelas: {kelas}\n— siMADA';
   var waDefaultDzuhur=waDefaultDhuha;
   function showWaTab(tab){document.querySelectorAll('[data-wa-tab]').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-wa-tab')===tab);});document.querySelectorAll('[data-wa-panel]').forEach(function(p){p.classList.toggle('active',p.getAttribute('data-wa-panel')===tab);});if(tab==='history')loadWaHistory();if(tab==='template')loadWaTestStudents();}
   function initHariEfektifYearSelect(){
@@ -6398,7 +6397,7 @@
       var win=window.open('', '_blank');
       if(!win){appNotify('Jendela cetak diblokir browser. Izinkan pop-up untuk aplikasi ini.', 'error');return;}
       win.document.open();
-      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Cetak Semua ID Card siMADU</title><style>@page{size:A4;margin:8mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;color:#111}.grid{display:grid;grid-template-columns:repeat(3,2.25in);gap:7mm 5mm;justify-content:center}.card{width:2.25in;height:3.55in;position:relative;overflow:hidden;border-radius:12px;padding:10px;break-inside:avoid;page-break-inside:avoid;color:#fff;background:linear-gradient(160deg,#071d43,#0753a2 62%,#081b42)}.logo{position:absolute;top:10px;left:10px;width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:2px;z-index:3}.school{position:relative;z-index:3;margin-left:34px;font-size:8px;font-weight:bold;text-transform:uppercase;max-width:calc(100% - 38px)}.school small{display:block;font-size:6px;margin-top:3px}.photo{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;mask-image:linear-gradient(to bottom,#000 0%,#000 82%,rgba(0,0,0,.9) 90%,rgba(0,0,0,.55) 96%,rgba(0,0,0,0) 100%)}.placeholder{background:linear-gradient(#cbd5e1,#64748b)}.name{position:absolute;right:6px;bottom:52px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;font-weight:bold;max-height:66%;z-index:3}.tag{position:absolute;right:7px;bottom:9px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:7px;z-index:3}.bottom{position:absolute;left:9px;bottom:9px;z-index:4;display:flex;align-items:flex-end;gap:6px}.qr{background:#fff;border-radius:4px;padding:3px;line-height:0}.qr img,.qr canvas{width:60px!important;height:60px!important}.meta{font-size:7px;line-height:1.6}.green{background:linear-gradient(150deg,#007343 0 12%,#fff 12% 86%,#007343 86%);color:#092b20;border:2px solid #087647}.green .photo,.purple .photo{position:relative;display:block;width:1.35in;height:1.45in;margin:10px auto 4px;border-radius:10px;mask-image:none;border:2px solid #087647}.green .name,.purple .name{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center;font-size:10px}.green .tag,.purple .tag{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center}.green .bottom,.purple .bottom{position:absolute;left:8px;bottom:8px;display:flex}.purple{background:linear-gradient(155deg,#f8f3ff,#fff 55%,#e9d5ff);color:#271044;border:2px solid #7c3aed}.purple .photo{border:3px solid #7c3aed;border-radius:50%;width:1.35in;height:1.35in}.blue:after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2790%27 height=%2790%27 viewBox=%270 0 90 90%27%3E%3Cg fill=%27none%27 stroke=%27white%27 stroke-opacity=%27.14%27%3E%3Cpath d=%27M45 4 57 16 45 28 33 16Z M16 33 28 45 16 57 4 45Z M74 33 86 45 74 57 62 45Z M45 62 57 74 45 86 33 74Z%27/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:2}.blue .photo{z-index:1}.qr img{object-fit:contain}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.card{box-shadow:none}} </style></head><body><div class="grid">${cardHtml}</div>
+      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Cetak Semua ID Card siMADA</title><style>@page{size:A4;margin:8mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;color:#111}.grid{display:grid;grid-template-columns:repeat(3,2.25in);gap:7mm 5mm;justify-content:center}.card{width:2.25in;height:3.55in;position:relative;overflow:hidden;border-radius:12px;padding:10px;break-inside:avoid;page-break-inside:avoid;color:#fff;background:linear-gradient(160deg,#071d43,#0753a2 62%,#081b42)}.logo{position:absolute;top:10px;left:10px;width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:2px;z-index:3}.school{position:relative;z-index:3;margin-left:34px;font-size:8px;font-weight:bold;text-transform:uppercase;max-width:calc(100% - 38px)}.school small{display:block;font-size:6px;margin-top:3px}.photo{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;mask-image:linear-gradient(to bottom,#000 0%,#000 82%,rgba(0,0,0,.9) 90%,rgba(0,0,0,.55) 96%,rgba(0,0,0,0) 100%)}.placeholder{background:linear-gradient(#cbd5e1,#64748b)}.name{position:absolute;right:6px;bottom:52px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;font-weight:bold;max-height:66%;z-index:3}.tag{position:absolute;right:7px;bottom:9px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:7px;z-index:3}.bottom{position:absolute;left:9px;bottom:9px;z-index:4;display:flex;align-items:flex-end;gap:6px}.qr{background:#fff;border-radius:4px;padding:3px;line-height:0}.qr img,.qr canvas{width:60px!important;height:60px!important}.meta{font-size:7px;line-height:1.6}.green{background:linear-gradient(150deg,#007343 0 12%,#fff 12% 86%,#007343 86%);color:#092b20;border:2px solid #087647}.green .photo,.purple .photo{position:relative;display:block;width:1.35in;height:1.45in;margin:10px auto 4px;border-radius:10px;mask-image:none;border:2px solid #087647}.green .name,.purple .name{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center;font-size:10px}.green .tag,.purple .tag{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center}.green .bottom,.purple .bottom{position:absolute;left:8px;bottom:8px;display:flex}.purple{background:linear-gradient(155deg,#f8f3ff,#fff 55%,#e9d5ff);color:#271044;border:2px solid #7c3aed}.purple .photo{border:3px solid #7c3aed;border-radius:50%;width:1.35in;height:1.35in}.blue:after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2790%27 height=%2790%27 viewBox=%270 0 90 90%27%3E%3Cg fill=%27none%27 stroke=%27white%27 stroke-opacity=%27.14%27%3E%3Cpath d=%27M45 4 57 16 45 28 33 16Z M16 33 28 45 16 57 4 45Z M74 33 86 45 74 57 62 45Z M45 62 57 74 45 86 33 74Z%27/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:2}.blue .photo{z-index:1}.qr img{object-fit:contain}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.card{box-shadow:none}} </style></head><body><div class="grid">${cardHtml}</div>
 
 
 <script>
@@ -6424,7 +6423,7 @@
     var g=(globalMasterData.guru||[]).find(function(x){return String(x[0])===String(nip);});if(!g){appNotify('Data guru tidak ditemukan.','error');return;}
     var token=String(g[14]||g[0]||'').trim();if(!token){appNotify('NIP guru belum diisi. Lengkapi NIP pada Master Guru terlebih dahulu.','error');return;}
     var w=window.open('','_blank','width=520,height=680');if(!w){appNotify('Izinkan pop-up untuk mencetak kartu QR.','error');return;}
-    w.document.write('<!doctype html><html><head><title>Kartu Guru</title><style>body{font-family:Arial;text-align:center;padding:30px}.card{border:2px solid #1748c9;border-radius:18px;padding:24px;width:320px;margin:auto}#qr{display:flex;justify-content:center;margin:20px}h2{margin:8px 0}small{color:#555}</style></head><body><div class="card"><h2>MAS DARUL AMIN</h2><p>KARTU ABSENSI GURU</p><div id="qr"></div><h3>'+String(g[1]||'').replace(/[<>]/g,'')+'</h3><small>NIP: '+String(g[0]||'').replace(/[<>]/g,'')+'</small><p><small>Gunakan QR ini untuk absensi masuk dan pulang melalui siMADU.</small></p></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script><script>new QRCode(document.getElementById("qr"),{text:'+JSON.stringify(token)+',width:220,height:220});setTimeout(function(){window.print()},700)<\/script></body></html>');w.document.close();
+    w.document.write('<!doctype html><html><head><title>Kartu Guru</title><style>body{font-family:Arial;text-align:center;padding:30px}.card{border:2px solid #1748c9;border-radius:18px;padding:24px;width:320px;margin:auto}#qr{display:flex;justify-content:center;margin:20px}h2{margin:8px 0}small{color:#555}</style></head><body><div class="card"><h2>MAS DARUL AMIN</h2><p>KARTU ABSENSI GURU</p><div id="qr"></div><h3>'+String(g[1]||'').replace(/[<>]/g,'')+'</h3><small>NIP: '+String(g[0]||'').replace(/[<>]/g,'')+'</small><p><small>Gunakan QR ini untuk absensi masuk dan pulang melalui siMADA.</small></p></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script><script>new QRCode(document.getElementById("qr"),{text:'+JSON.stringify(token)+',width:220,height:220});setTimeout(function(){window.print()},700)<\/script></body></html>');w.document.close();
   }
 
 </body></html>`);
@@ -6520,7 +6519,7 @@
     var valid = gurus.filter(function(g){ return guruIdCardData(g).nip && guruIdCardData(g).token; });
     if (!valid.length) { appNotify('Tidak ada guru dengan NIP/QR Token yang valid.', 'warning'); return; }
     if (!window.confirm('Cetak ID Card untuk ' + valid.length + ' guru? Pastikan printer dan ukuran kertas sudah sesuai.')) return;
-    buildGuruIdCardPrintWindow(valid, 'Cetak Semua ID Card Guru siMADU');
+    buildGuruIdCardPrintWindow(valid, 'Cetak Semua ID Card Guru siMADA');
   }
 
   function showStudentIdCard(encodedNisn) {
@@ -6677,7 +6676,7 @@
   function exportPPDBPDF(){
     if(!window.jspdf||!window.jspdf.jsPDF){appNotify('Library PDF belum tersedia.','error');return;}
     var doc=new jspdf.jsPDF({orientation:'landscape',unit:'mm',format:'a3'});doc.setFontSize(15);doc.text('DATA PENERIMAAN PESERTA DIDIK BARU (PPDB)',14,15);
-    doc.setFontSize(9);doc.text('siMADU — Sistem Manajemen MAS Darul Ulum',14,21);
+    doc.setFontSize(9);doc.text('siMADA — Sistem Manajemen MAS Darul Amin',14,21);
     var headers=['No. Pendaftaran','Tanggal','Nama Lengkap','NIK','NISN','JK','Asal Madrasah','Orang Tua/Wali','No. HP','Status'];
     var rows=ppdbRows.map(function(r){return [r['No. Pendaftaran'],r['Tanggal Pendaftaran'],r['Nama Lengkap'],r.NIK,r.NISN,r['Jenis Kelamin'],r['Asal Madrasah'],r['Nama Wali']||r['Nama Ayah']||r['Nama Ibu'],r['No. HP Orang Tua/Wali'],r.Status];});
     doc.autoTable({head:[headers],body:rows,startY:26,styles:{fontSize:7,cellPadding:2},headStyles:{fillColor:[30,64,175]},margin:{left:10,right:10}});
@@ -6713,6 +6712,44 @@
     {key:'pengaturan',label:'Pengaturan',fullLabel:'Pengaturan User',desc:'Pengaturan pengguna dan hak akses.',icon:'bi-gear',action:'login'}
   ];
   var publicHomeSelectedMenus = [];
+  // Sinkronisasi logo dari Profil Madrasah ke seluruh area aplikasi.
+  // Tidak mengubah penyimpanan/database; hanya memperbarui elemen tampilan.
+  function applySchoolLogoEverywhere(profile) {
+    var p = profile || {};
+    var raw = String(p['Logo'] || '').trim();
+    if (!raw) return;
+
+    // Cache-busting hanya untuk URL gambar biasa; data URL/base64 tidak diubah.
+    var src = raw;
+    if (/^https?:\/\//i.test(raw)) {
+      try {
+        var u = new URL(raw, window.location.href);
+        u.searchParams.set('_logo_v', String(Date.now()));
+        src = u.toString();
+      } catch (e) { src = raw; }
+    }
+    var safe = src.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    var imgHtml = '<img src="' + safe + '" alt="Logo Madrasah" onerror="this.style.display=\'none\'">';
+
+    var home = document.getElementById('homeLogoContainer');
+    if (home) home.innerHTML = imgHtml;
+    var watermark = document.getElementById('homeHeroLogoWatermark');
+    if (watermark) watermark.innerHTML = imgHtml;
+    var loginBrand = document.getElementById('loginBrandLogo');
+    if (loginBrand) { loginBrand.src = src; loginBrand.style.display = ''; }
+    var login = document.getElementById('loginLogoContainer');
+    if (login) login.innerHTML = '<img src="' + safe + '" class="login-logo-img rounded" alt="Logo Madrasah">';
+    var sidebar = document.getElementById('sidebarLogoContainer');
+    if (sidebar) sidebar.innerHTML = '<img src="' + safe + '" class="brand-logo-img rounded" alt="Logo Madrasah">';
+
+    ['mobileAppLogo', 'sidebarMobileLogo', 'printSchoolLogo'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) { el.src = src; el.style.display = 'block'; }
+    });
+    var loader = document.getElementById('masdaLoaderLogoWrap');
+    if (loader) loader.innerHTML = '<img class="loader-logo" alt="Logo Madrasah" src="' + safe + '">';
+  }
+
   function loadPublicHomeMenu(){
     if(!(window.google&&google.script&&google.script.run))return;
     google.script.run.withSuccessHandler(function(cfg){
@@ -6728,7 +6765,7 @@
       var emailEl=document.getElementById('homeSchoolEmail'),emailWrap=document.getElementById('homeEmailWrap');
       if(phoneEl)phoneEl.textContent=phone;if(phoneWrap)phoneWrap.style.display=phone?'':'none';
       if(emailEl)emailEl.textContent=email;if(emailWrap)emailWrap.style.display=email?'':'none';
-      if(p['Logo']){var src=String(p['Logo']).replace(/"/g,'&quot;');var logo=document.getElementById('homeLogoContainer');if(logo)logo.innerHTML='<img src="'+src+'" alt="Logo Madrasah">';var watermark=document.getElementById('homeHeroLogoWatermark');if(watermark)watermark.innerHTML='<img src="'+src+'" alt="Logo Madrasah">';var loginBrand=document.getElementById('loginBrandLogo');if(loginBrand)loginBrand.src=src;}
+      applySchoolLogoEverywhere(p);
     }).getProfil();
   }
   function renderPublicHomeMenu(){
@@ -6756,9 +6793,9 @@
     if(!copy||!imageBox||!(window.google&&google.script&&google.script.run))return;
     google.script.run.withSuccessHandler(function(rows){
       rows=Array.isArray(rows)?rows:[];
-      if(!rows.length){copy.innerHTML='<span class="public-home-eyebrow"><i class="bi bi-megaphone-fill me-1"></i> PENGUMUMAN Madrasah</span><h1>Belum ada <span>Pengumuman</span></h1><p class="hero-quote">Belum ada pengumuman yang dipublikasikan oleh Madrasah.</p><p class="hero-description">Silakan kunjungi kembali halaman ini untuk melihat informasi terbaru dari MAS Darul Ulum.</p>';imageBox.innerHTML='<div class="featured-image-placeholder"><i class="bi bi-megaphone"></i></div>';return;}
+      if(!rows.length){copy.innerHTML='<span class="public-home-eyebrow"><i class="bi bi-megaphone-fill me-1"></i> PENGUMUMAN Madrasah</span><h1>Belum ada <span>Pengumuman</span></h1><p class="hero-quote">Belum ada pengumuman yang dipublikasikan oleh Madrasah.</p><p class="hero-description">Silakan kunjungi kembali halaman ini untuk melihat informasi terbaru dari MAS Darul Amin.</p>';imageBox.innerHTML='<div class="featured-image-placeholder"><i class="bi bi-megaphone"></i></div>';return;}
       var r=rows[0]||{},title=String(r.Judul||'Pengumuman Madrasah'),content=String(r['Isi Pengumuman']||'');
-      copy.innerHTML='<span class="public-home-eyebrow"><i class="bi bi-megaphone-fill me-1"></i> PENGUMUMAN Madrasah</span><h1>'+ppdbEscape(title)+'</h1><p class="featured-announcement-title">Informasi resmi MAS Darul Ulum</p><p class="featured-announcement-body">'+ppdbEscape(content)+'</p>';
+      copy.innerHTML='<span class="public-home-eyebrow"><i class="bi bi-megaphone-fill me-1"></i> PENGUMUMAN Madrasah</span><h1>'+ppdbEscape(title)+'</h1><p class="featured-announcement-title">Informasi resmi MAS Darul Amin</p><p class="featured-announcement-body">'+ppdbEscape(content)+'</p>';
       if(r['URL Gambar']){imageBox.innerHTML='<img src="'+ppdbEscape(r['URL Gambar'])+'" alt="Gambar pengumuman">';var im=imageBox.querySelector('img');if(im)im.onerror=function(){imageBox.innerHTML='<div class="featured-image-placeholder"><i class="bi bi-megaphone"></i></div>';};}
       else imageBox.innerHTML='<div class="featured-image-placeholder"><i class="bi bi-megaphone"></i></div>';
     }).withFailureHandler(function(){copy.innerHTML='<span class="public-home-eyebrow"><i class="bi bi-megaphone-fill me-1"></i> PENGUMUMAN Madrasah</span><h1>Pengumuman <span>Madrasah</span></h1><p class="hero-quote">Pengumuman belum dapat dimuat saat ini.</p><p class="hero-description">Silakan coba kembali beberapa saat lagi.</p>';imageBox.innerHTML='<div class="featured-image-placeholder"><i class="bi bi-megaphone"></i></div>';}).getPengumuman(true);
@@ -6776,7 +6813,7 @@
     if(key==='profil'){
       var area=document.getElementById('publicHomeDynamicContent'),body=document.getElementById('publicHomeContentBody');if(!area||!body)return;
       area.classList.remove('d-none');body.innerHTML='<h2>Profil Madrasah</h2><p class="text-secondary">Memuat profil Madrasah...</p>';area.scrollIntoView({behavior:'smooth',block:'start'});
-      google.script.run.withSuccessHandler(function(p){p=p||{};body.innerHTML='<h2>Profil Madrasah</h2><div class="row g-3">'+(p.Logo?'<div class="col-12 col-md-3"><img src="'+String(p.Logo).replace(/"/g,'&quot;')+'" alt="Logo Madrasah" style="max-width:150px;max-height:150px;object-fit:contain"></div>':'')+'<div class="col"><h3 class="h5 fw-bold">'+ppdbEscape(p['Nama Madrasah']||'MAS Darul Ulum')+'</h3><p>'+ppdbEscape(p['Visi Misi']||'Informasi profil Madrasah belum dilengkapi.')+'</p>'+(p['No. Handphone']?'<p><i class="bi bi-telephone me-2"></i>'+ppdbEscape(p['No. Handphone'])+'</p>':'')+(p.Email?'<p><i class="bi bi-envelope me-2"></i>'+ppdbEscape(p.Email)+'</p>':'')+'</div></div>';}).getProfil();return;
+      google.script.run.withSuccessHandler(function(p){p=p||{};body.innerHTML='<h2>Profil Madrasah</h2><div class="row g-3">'+(p.Logo?'<div class="col-12 col-md-3"><img src="'+String(p.Logo).replace(/"/g,'&quot;')+'" alt="Logo Madrasah" style="max-width:150px;max-height:150px;object-fit:contain"></div>':'')+'<div class="col"><h3 class="h5 fw-bold">'+ppdbEscape(p['Nama Madrasah']||'MAS Darul Amin')+'</h3><p>'+ppdbEscape(p['Visi Misi']||'Informasi profil Madrasah belum dilengkapi.')+'</p>'+(p['No. Handphone']?'<p><i class="bi bi-telephone me-2"></i>'+ppdbEscape(p['No. Handphone'])+'</p>':'')+(p.Email?'<p><i class="bi bi-envelope me-2"></i>'+ppdbEscape(p.Email)+'</p>':'')+'</div></div>';}).getProfil();return;
     }
     if(key==='struktur'){
       var area=document.getElementById('publicHomeDynamicContent'),body=document.getElementById('publicHomeContentBody');if(!area||!body)return;
@@ -6806,7 +6843,7 @@
 </script>
 
 <script>
-// PWA siMADU: registrasi service worker dan alur instalasi Android.
+// PWA siMADA: registrasi service worker dan alur instalasi Android.
 (function () {
   'use strict';
   var deferredInstallPrompt = null;
@@ -6819,23 +6856,23 @@
   window.addEventListener('appinstalled', function () {
     deferredInstallPrompt = null;
     if (installButton) installButton.classList.add('d-none');
-    if (typeof appNotify === 'function') appNotify('siMADU berhasil dipasang pada perangkat.', 'success');
+    if (typeof appNotify === 'function') appNotify('siMADA berhasil dipasang pada perangkat.', 'success');
   });
   window.installSiMADAApp = async function () {
-    if (isStandalone()) { if (typeof appNotify === 'function') appNotify('siMADU sudah berjalan sebagai aplikasi.', 'info'); return; }
+    if (isStandalone()) { if (typeof appNotify === 'function') appNotify('siMADA sudah berjalan sebagai aplikasi.', 'info'); return; }
     if (deferredInstallPrompt) {
       deferredInstallPrompt.prompt();
       try { await deferredInstallPrompt.userChoice; } catch (e) {}
       deferredInstallPrompt = null; return;
     }
-    var msg = 'Untuk memasang siMADU: buka menu browser (⋮), lalu pilih “Tambahkan ke layar utama” atau “Install app”. Pastikan aplikasi dibuka melalui alamat HTTPS.';
+    var msg = 'Untuk memasang siMADA: buka menu browser (⋮), lalu pilih “Tambahkan ke layar utama” atau “Install app”. Pastikan aplikasi dibuka melalui alamat HTTPS.';
     if (typeof appNotify === 'function') appNotify(msg, 'info'); else window.alert(msg);
   };
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
     window.addEventListener('load', function () {
       navigator.serviceWorker.register('/service-worker.js', { scope:'/' })
-        .then(function (registration) { console.info('[siMADU PWA] Service worker aktif:', registration.scope); })
-        .catch(function (error) { console.warn('[siMADU PWA] Registrasi service worker gagal:', error); });
+        .then(function (registration) { console.info('[siMADA PWA] Service worker aktif:', registration.scope); })
+        .catch(function (error) { console.warn('[siMADA PWA] Registrasi service worker gagal:', error); });
     }, { once:true });
   }
   if (installButton && isStandalone()) installButton.classList.add('d-none');
@@ -6865,7 +6902,7 @@
     var g=(globalMasterData.guru||[]).find(function(x){return String(x[0])===String(nip);});if(!g){appNotify('Data guru tidak ditemukan.','error');return;}
     var token=String(g[14]||g[0]||'').trim();if(!token){appNotify('NIP guru belum diisi. Lengkapi NIP pada Master Guru terlebih dahulu.','error');return;}
     var w=window.open('','_blank','width=520,height=680');if(!w){appNotify('Izinkan pop-up untuk mencetak kartu QR.','error');return;}
-    w.document.write('<!doctype html><html><head><title>Kartu Guru</title><style>body{font-family:Arial;text-align:center;padding:30px}.card{border:2px solid #1748c9;border-radius:18px;padding:24px;width:320px;margin:auto}#qr{display:flex;justify-content:center;margin:20px}h2{margin:8px 0}small{color:#555}</style></head><body><div class="card"><h2>MAS DARUL AMIN</h2><p>KARTU ABSENSI GURU</p><div id="qr"></div><h3>'+String(g[1]||'').replace(/[<>]/g,'')+'</h3><small>NIP: '+String(g[0]||'').replace(/[<>]/g,'')+'</small><p><small>Gunakan QR ini untuk absensi masuk dan pulang melalui siMADU.</small></p></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script><script>new QRCode(document.getElementById("qr"),{text:'+JSON.stringify(token)+',width:220,height:220});setTimeout(function(){window.print()},700)<\/script></body></html>');w.document.close();
+    w.document.write('<!doctype html><html><head><title>Kartu Guru</title><style>body{font-family:Arial;text-align:center;padding:30px}.card{border:2px solid #1748c9;border-radius:18px;padding:24px;width:320px;margin:auto}#qr{display:flex;justify-content:center;margin:20px}h2{margin:8px 0}small{color:#555}</style></head><body><div class="card"><h2>MAS DARUL AMIN</h2><p>KARTU ABSENSI GURU</p><div id="qr"></div><h3>'+String(g[1]||'').replace(/[<>]/g,'')+'</h3><small>NIP: '+String(g[0]||'').replace(/[<>]/g,'')+'</small><p><small>Gunakan QR ini untuk absensi masuk dan pulang melalui siMADA.</small></p></div><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script><script>new QRCode(document.getElementById("qr"),{text:'+JSON.stringify(token)+',width:220,height:220});setTimeout(function(){window.print()},700)<\/script></body></html>');w.document.close();
   }
 </script>
 </body>
