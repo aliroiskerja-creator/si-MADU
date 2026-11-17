@@ -385,6 +385,19 @@
     .student-id-card.theme-blue .id-card-bottom{position:absolute;z-index:4;left:10px;bottom:10px;margin:0;padding:0;display:block}
     .student-id-card.theme-blue .id-meta{display:none}
     .student-id-card.theme-blue .id-qr{padding:4px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+    /* Desain utama sesuai contoh kartu biru yang diberikan */
+    .student-id-card.theme-classic{background:linear-gradient(180deg,#073b9a 0 13%,#062b70 13% 88%,#073b9a 88%);border:1px solid #0b4bb8;border-radius:10px;color:#fff;padding:12px}
+    .student-id-card.theme-classic:before{background:radial-gradient(ellipse at 50% 45%,rgba(20,92,220,.2),transparent 55%),repeating-linear-gradient(0deg,transparent 0 34px,rgba(35,112,255,.18) 35px 37px);opacity:1}
+    .student-id-card.theme-classic:after{content:"";position:absolute;z-index:0;left:-8%;top:0;width:116%;height:17%;border-bottom:4px solid #fff;border-radius:0 0 45% 8%;box-shadow:0 5px 0 rgba(35,105,255,.85);pointer-events:none}
+    .student-id-card.theme-classic .id-school-head{z-index:3;min-height:32px;margin-top:2px;color:#fff}
+    .student-id-card.theme-classic .id-school-logo{width:34px;height:34px;border-radius:50%;border:2px solid #fff}
+    .student-id-card.theme-classic .id-student-photo{position:relative;z-index:2;width:1.35in;height:1.48in;object-fit:cover;object-position:center 22%;border:3px solid #fff;border-radius:5px;margin:10px auto 6px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+    .student-id-card.theme-classic .id-student-name{position:relative;z-index:3;text-align:center;font-size:11px;line-height:1.15;margin:0 auto 3px;color:#fff}
+    .student-id-card.theme-classic .id-student-tag{position:relative;z-index:3;text-align:center;font-size:7px;letter-spacing:1px;margin:0 0 4px;color:#dbeafe}
+    .student-id-card.theme-classic .id-card-bottom{position:absolute;z-index:4;left:9px;right:9px;bottom:9px;margin:0;padding:7px 8px;border:1.5px solid #fff;border-radius:8px;align-items:center;background:rgba(3,35,95,.72)}
+    .student-id-card.theme-classic .id-meta{font-size:7px;line-height:1.45;color:#fff;max-width:calc(100% - 58px)}
+    .student-id-card.theme-classic .id-qr{padding:3px;border-radius:2px}
+    .student-id-card.theme-classic .id-qr img,.student-id-card.theme-classic .id-qr canvas{width:54px!important;height:54px!important}
     .student-id-card.theme-green{background:linear-gradient(150deg,#007343 0 12%,#fff 12% 86%,#007343 86%);color:#092b20;border:2px solid #087647}
     .student-id-card.theme-green:before{background:linear-gradient(135deg,rgba(255,196,65,.36),transparent 40%)}
     .student-id-card.theme-green .id-student-photo{position:relative;z-index:1;width:1.42in;height:1.48in;object-fit:cover;object-position:center 22%;border:2px solid #087647;border-radius:12px;background:#e2e8f0;margin:10px auto 7px}
@@ -6261,9 +6274,9 @@
   function setStudentIdCardTheme(theme) {
     var card = document.getElementById('studentIdCardPrint');
     if (!card) return;
-    card.classList.remove('theme-blue', 'theme-green', 'theme-purple');
-    card.classList.add('theme-' + (['blue','green','purple'].indexOf(theme) >= 0 ? theme : 'blue'));
-    window.masdaBulkIdTheme = (['blue','green','purple'].indexOf(theme) >= 0 ? theme : 'blue');
+    card.classList.remove('theme-blue', 'theme-green', 'theme-purple', 'theme-classic');
+    card.classList.add('theme-' + (['classic','blue','green','purple'].indexOf(theme) >= 0 ? theme : 'classic'));
+    window.masdaBulkIdTheme = (['classic','blue','green','purple'].indexOf(theme) >= 0 ? theme : 'classic');
     document.querySelectorAll('#studentIdCardModal .id-card-theme-btn').forEach(function(btn) {
       var active = btn.getAttribute('data-theme') === theme;
       btn.classList.toggle('active', active);
@@ -6279,7 +6292,7 @@
     var profile = globalPrintSchoolProfile || {};
     var schoolName = String(profile['Nama Madrasah'] || 'MAS DARUL ULUM');
     var logo = String(profile['Logo'] || (document.getElementById('profLogoBase64') || {}).value || '');
-    var theme = (window.masdaBulkIdTheme || 'blue');
+    var theme = (window.masdaBulkIdTheme || 'classic');
     var staging = document.createElement('div');
     staging.style.cssText = 'position:fixed;left:-10000px;top:0;width:1px;height:1px;overflow:hidden';
     document.body.appendChild(staging);
@@ -6295,6 +6308,7 @@
         var photoHtml = photo ? '<img class="photo" src="'+escapeHtml(photo)+'">' : '<div class="photo placeholder"></div>';
         var safeLogo = logo ? '<img class="logo" src="'+escapeHtml(logo)+'">' : '';
         var nm=escapeHtml(s[1]||''), nisn=escapeHtml(s[0]||''), kelas=escapeHtml(s[2]||'-');
+        if(theme==='classic') return '<article class="card classic">'+safeLogo+'<div class="school">'+escapeHtml(schoolName)+'<small>KARTU IDENTITAS SISWA</small></div>'+photoHtml+'<div class="name">'+nm+'</div><div class="tag">SISWA / SISWI</div><div class="bottom"><div class="meta">NAMA: '+nm+'<br>NISN: '+nisn+'<br>KELAS: '+kelas+'</div><div class="qr">'+qrHtml+'</div></div></article>';
         if(theme==='green') return '<article class="card green">'+safeLogo+'<div class="school">'+escapeHtml(schoolName)+'<small>KARTU IDENTITAS SISWA</small></div>'+photoHtml+'<div class="name">'+nm+'</div><div class="tag">'+kelas+'</div><div class="bottom"><div class="qr">'+qrHtml+'</div><div class="meta">NISN: '+nisn+'<br>Kelas: '+kelas+'</div></div></article>';
         if(theme==='purple') return '<article class="card purple">'+safeLogo+'<div class="school">'+escapeHtml(schoolName)+'<small>KARTU IDENTITAS SISWA</small></div>'+photoHtml+'<div class="name">'+nm+'</div><div class="tag">'+kelas+'</div><div class="bottom"><div class="qr">'+qrHtml+'</div><div class="meta">NISN: '+nisn+'<br>Kelas: '+kelas+'</div></div></article>';
         return '<article class="card blue">'+safeLogo+'<div class="school">'+escapeHtml(schoolName)+'<small>KARTU IDENTITAS SISWA</small></div>'+photoHtml+'<div class="name">'+nm+'</div><div class="tag">'+kelas+'</div><div class="bottom"><div class="qr">'+qrHtml+'</div></div></article>';
@@ -6303,7 +6317,7 @@
       var win=window.open('', '_blank');
       if(!win){appNotify('Jendela cetak diblokir browser. Izinkan pop-up untuk aplikasi ini.', 'error');return;}
       win.document.open();
-      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Cetak Semua ID Card siMADU</title><style>@page{size:A4;margin:8mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;color:#111}.grid{display:grid;grid-template-columns:repeat(3,2.25in);gap:7mm 5mm;justify-content:center}.card{width:2.25in;height:3.55in;position:relative;overflow:hidden;border-radius:12px;padding:10px;break-inside:avoid;page-break-inside:avoid;color:#fff;background:linear-gradient(160deg,#071d43,#0753a2 62%,#081b42)}.logo{position:absolute;top:10px;left:10px;width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:2px;z-index:3}.school{position:relative;z-index:3;margin-left:34px;font-size:8px;font-weight:bold;text-transform:uppercase;max-width:calc(100% - 38px)}.school small{display:block;font-size:6px;margin-top:3px}.photo{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;mask-image:linear-gradient(to bottom,#000 0%,#000 82%,rgba(0,0,0,.9) 90%,rgba(0,0,0,.55) 96%,rgba(0,0,0,0) 100%)}.placeholder{background:linear-gradient(#cbd5e1,#64748b)}.name{position:absolute;right:6px;bottom:52px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;font-weight:bold;max-height:66%;z-index:3}.tag{position:absolute;right:7px;bottom:9px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:7px;z-index:3}.bottom{position:absolute;left:9px;bottom:9px;z-index:4;display:flex;align-items:flex-end;gap:6px}.qr{background:#fff;border-radius:4px;padding:3px;line-height:0}.qr img,.qr canvas{width:60px!important;height:60px!important}.meta{font-size:7px;line-height:1.6}.green{background:linear-gradient(150deg,#007343 0 12%,#fff 12% 86%,#007343 86%);color:#092b20;border:2px solid #087647}.green .photo,.purple .photo{position:relative;display:block;width:1.35in;height:1.45in;margin:10px auto 4px;border-radius:10px;mask-image:none;border:2px solid #087647}.green .name,.purple .name{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center;font-size:10px}.green .tag,.purple .tag{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center}.green .bottom,.purple .bottom{position:absolute;left:8px;bottom:8px;display:flex}.purple{background:linear-gradient(145deg,#0754ad 0 16%,#fff 16% 84%,#0754ad 84%);color:#082d68;border:2px solid #eabf38}.purple .photo{border:3px solid #eabf38;border-radius:14px;width:1.35in;height:1.35in}.blue:after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2790%27 height=%2790%27 viewBox=%270 0 90 90%27%3E%3Cg fill=%27none%27 stroke=%27white%27 stroke-opacity=%27.14%27%3E%3Cpath d=%27M45 4 57 16 45 28 33 16Z M16 33 28 45 16 57 4 45Z M74 33 86 45 74 57 62 45Z M45 62 57 74 45 86 33 74Z%27/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:2}.blue .photo{z-index:1}.qr img{object-fit:contain}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.card{box-shadow:none}} </style></head><body><div class="grid">${cardHtml}</div>
+      win.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Cetak Semua ID Card siMADU</title><style>@page{size:A4;margin:8mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;color:#111}.grid{display:grid;grid-template-columns:repeat(3,2.25in);gap:7mm 5mm;justify-content:center}.card{width:2.25in;height:3.55in;position:relative;overflow:hidden;border-radius:12px;padding:10px;break-inside:avoid;page-break-inside:avoid;color:#fff;background:linear-gradient(160deg,#071d43,#0753a2 62%,#081b42)}.logo{position:absolute;top:10px;left:10px;width:28px;height:28px;object-fit:contain;background:#fff;border-radius:6px;padding:2px;z-index:3}.school{position:relative;z-index:3;margin-left:34px;font-size:8px;font-weight:bold;text-transform:uppercase;max-width:calc(100% - 38px)}.school small{display:block;font-size:6px;margin-top:3px}.photo{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;mask-image:linear-gradient(to bottom,#000 0%,#000 82%,rgba(0,0,0,.9) 90%,rgba(0,0,0,.55) 96%,rgba(0,0,0,0) 100%)}.placeholder{background:linear-gradient(#cbd5e1,#64748b)}.name{position:absolute;right:6px;bottom:52px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;font-weight:bold;max-height:66%;z-index:3}.tag{position:absolute;right:7px;bottom:9px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:7px;z-index:3}.bottom{position:absolute;left:9px;bottom:9px;z-index:4;display:flex;align-items:flex-end;gap:6px}.qr{background:#fff;border-radius:4px;padding:3px;line-height:0}.qr img,.qr canvas{width:60px!important;height:60px!important}.meta{font-size:7px;line-height:1.6}.classic{background:linear-gradient(180deg,#073b9a 0 13%,#062b70 13% 88%,#073b9a 88%);border:1px solid #0b4bb8;color:#fff;padding:10px}.classic .school{color:#fff}.classic .photo{position:relative;display:block;width:1.35in;height:1.48in;object-fit:cover;object-position:center 22%;border:3px solid #fff;border-radius:5px;margin:10px auto 5px;mask-image:none}.classic .name,.classic .tag{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center;color:#fff}.classic .name{font-size:10px}.classic .tag{font-size:7px;margin-bottom:4px}.classic .bottom{left:8px;right:8px;bottom:8px;border:1px solid #fff;border-radius:7px;padding:6px;background:rgba(3,35,95,.75);align-items:center;justify-content:space-between}.classic .meta{color:#fff;font-size:6px;max-width:calc(100% - 56px)}.classic .qr img,.classic .qr canvas{width:54px!important;height:54px!important}.green{background:linear-gradient(150deg,#007343 0 12%,#fff 12% 86%,#007343 86%);color:#092b20;border:2px solid #087647}.green .photo,.purple .photo{position:relative;display:block;width:1.35in;height:1.45in;margin:10px auto 4px;border-radius:10px;mask-image:none;border:2px solid #087647}.green .name,.purple .name{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center;font-size:10px}.green .tag,.purple .tag{position:relative;right:auto;bottom:auto;writing-mode:initial;transform:none;text-align:center}.green .bottom,.purple .bottom{position:absolute;left:8px;bottom:8px;display:flex}.purple{background:linear-gradient(145deg,#0754ad 0 16%,#fff 16% 84%,#0754ad 84%);color:#082d68;border:2px solid #eabf38}.purple .photo{border:3px solid #eabf38;border-radius:14px;width:1.35in;height:1.35in}.blue:after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2790%27 height=%2790%27 viewBox=%270 0 90 90%27%3E%3Cg fill=%27none%27 stroke=%27white%27 stroke-opacity=%27.14%27%3E%3Cpath d=%27M45 4 57 16 45 28 33 16Z M16 33 28 45 16 57 4 45Z M74 33 86 45 74 57 62 45Z M45 62 57 74 45 86 33 74Z%27/%3E%3C/g%3E%3C/svg%3E");pointer-events:none;z-index:2}.blue .photo{z-index:1}.qr img{object-fit:contain}@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.card{box-shadow:none}} </style></head><body><div class="grid">${cardHtml}</div>
 
 
 <script>
@@ -6360,7 +6374,7 @@
     var photo = d.foto
       ? '<img class="guru-id-photo" src="' + guruIdCardEscape(d.foto) + '" alt="Foto guru">'
       : '<div class="guru-id-photo guru-id-photo-empty"></div>';
-    var themeClass = ['blue','gold','green'].indexOf(theme) >= 0 ? theme : 'blue';
+    var themeClass = ['classic','blue','gold','green'].indexOf(theme) >= 0 ? theme : 'classic';
     return '<article class="guru-id-card guru-theme-' + themeClass + '">' +
       '<div class="guru-id-top-accent"></div>' + safeLogo +
       '<div class="guru-id-school">' + guruIdCardEscape(schoolName) +
@@ -6390,6 +6404,7 @@
       '.guru-id-bottom-accent{position:absolute;z-index:0;right:0;bottom:0;width:100%;height:12%;background:#087647;clip-path:polygon(100% 0,100% 100%,0 100%)}' +
       '.guru-theme-blue{background:linear-gradient(160deg,#071d43,#0753a2 62%,#081b42);border:2px solid #1d5bd7;color:#fff}.guru-theme-blue:before{background:radial-gradient(circle at 10% 60%,rgba(255,255,255,.14),transparent 38%)}.guru-theme-blue .guru-id-school,.guru-theme-blue .guru-id-name,.guru-theme-blue .guru-id-nip{color:#fff}.guru-theme-blue .guru-id-role{color:#dbeafe}.guru-theme-blue .guru-id-top-accent,.guru-theme-blue .guru-id-bottom-accent{background:#0753c7}.guru-theme-blue .guru-id-photo{border-color:#fff}.guru-theme-blue .guru-id-logo{background:#fff}' +
       '.guru-theme-gold{background:linear-gradient(145deg,#0754ad 0 16%,#fff 16% 84%,#0754ad 84%);border:2px solid #eabf38;color:#082d68}.guru-theme-gold:before{background:linear-gradient(135deg,rgba(255,204,55,.42),transparent 48%)}.guru-theme-gold .guru-id-school,.guru-theme-gold .guru-id-name,.guru-theme-gold .guru-id-nip{color:#082d68}.guru-theme-gold .guru-id-role{color:#31527d}.guru-theme-gold .guru-id-top-accent,.guru-theme-gold .guru-id-bottom-accent{background:#eabf38}.guru-theme-gold .guru-id-photo{border-color:#eabf38}' +
+      '.guru-theme-classic{background:linear-gradient(180deg,#073b9a 0 13%,#062b70 13% 88%,#073b9a 88%);border:1px solid #0b4bb8;color:#fff;padding:10px}.guru-theme-classic:before{background:radial-gradient(ellipse at 50% 45%,rgba(20,92,220,.2),transparent 55%),repeating-linear-gradient(0deg,transparent 0 34px,rgba(35,112,255,.18) 35px 37px)}.guru-theme-classic .guru-id-top-accent,.guru-theme-classic .guru-id-bottom-accent{background:#0753c7}.guru-theme-classic .guru-id-school,.guru-theme-classic .guru-id-name,.guru-theme-classic .guru-id-nip,.guru-theme-classic .guru-id-role{color:#fff}.guru-theme-classic .guru-id-logo{border-radius:50%;border:2px solid #fff}.guru-theme-classic .guru-id-photo{width:1.35in;height:1.42in;object-fit:cover;object-position:center 22%;border:3px solid #fff;border-radius:5px;margin:10px auto 5px}.guru-theme-classic .guru-id-name{font-size:10px;margin:0 auto 3px}.guru-theme-classic .guru-id-role{font-size:7px;letter-spacing:1px}.guru-theme-classic .guru-id-bottom{position:absolute;left:9px;right:9px;bottom:9px;margin:0;padding:6px 7px;border:1px solid #fff;border-radius:7px;background:rgba(3,35,95,.78);align-items:center}.guru-theme-classic .guru-id-nip{font-size:7px;max-width:calc(100% - 62px)}.guru-theme-classic .guru-id-qr img,.guru-theme-classic .guru-id-qr canvas{width:54px!important;height:54px!important}' +
       '@media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact}.guru-id-card{box-shadow:none}}';
   }
   function buildGuruIdCardPrintWindow(guruList, title, theme) {
@@ -6422,26 +6437,50 @@
       w.document.close();
     }, 450);
   }
-  function chooseGuruIdCardTheme() {
-    var choice = window.prompt('Pilih desain ID Card Guru:\n1 = Biru Navy Modern (sesuai contoh utama)\n2 = Biru-Gold Elegan\n3 = Hijau Islami\n\nMasukkan angka 1, 2, atau 3:', '1');
-    if (choice === null) return '';
-    return ({'1':'blue','2':'gold','3':'green'})[String(choice).trim()] || (appNotify('Pilihan desain tidak valid. Gunakan angka 1, 2, atau 3.', 'warning'), '');
+  function setGuruIdCardTheme(theme) {
+    theme = ['classic','blue','gold','green'].indexOf(theme) >= 0 ? theme : 'classic';
+    var card = document.getElementById('guruIdCardPreview');
+    if (card) { card.classList.remove('guru-theme-classic','guru-theme-blue','guru-theme-gold','guru-theme-green'); card.classList.add('guru-theme-' + theme); }
+    window.masdaBulkGuruIdTheme = theme;
+    var modal = document.getElementById('guruIdCardModal');
+    if (modal) modal.querySelectorAll('.id-card-theme-btn').forEach(function(btn){var active=btn.getAttribute('data-theme')===theme;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',active?'true':'false');});
+  }
+  function printGuruIdCardNow() {
+    var g = window.masdaCurrentGuruIdCard;
+    if (!g) return;
+    buildGuruIdCardPrintWindow([g], 'ID Card Guru - ' + (g[1] || ''), window.masdaBulkGuruIdTheme || 'classic');
   }
   function printGuruIdCard(nip) {
     var guru = (globalMasterData.guru || []).find(function(g){ return String(g[0]) === String(nip); });
     if (!guru) { appNotify('Data guru tidak ditemukan.', 'error'); return; }
     if (!guruIdCardData(guru).token) { appNotify('NIP/QR Token guru belum tersedia.', 'warning'); return; }
-    var theme = chooseGuruIdCardTheme();
-    if (!theme) return;
-    buildGuruIdCardPrintWindow([guru], 'ID Card Guru - ' + (guru[1] || ''), theme);
+    window.masdaCurrentGuruIdCard = guru;
+    var modal = document.getElementById('guruIdCardModal');
+    if (!modal) {
+      modal = document.createElement('div'); modal.id='guruIdCardModal'; modal.className='modal fade'; modal.tabIndex=-1;
+      modal.innerHTML = '<div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">ID Card Guru</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="id-card-theme-picker d-flex flex-wrap justify-content-center gap-2 mb-3"><button type="button" class="id-card-theme-btn active" data-theme="classic">🔷 Biru Klasik (Utama)</button><button type="button" class="id-card-theme-btn" data-theme="blue">🔵 Navy Modern</button><button type="button" class="id-card-theme-btn" data-theme="gold">🟡 Biru-Gold Elegan</button><button type="button" class="id-card-theme-btn" data-theme="green">🟢 Hijau Islami</button></div><div id="guruIdCardPreview" class="guru-id-card guru-theme-classic mx-auto"></div></div><div class="modal-footer"><button type="button" class="btn btn-primary" onclick="printGuruIdCardNow()"><i class="bi bi-printer me-1"></i>Cetak ID Card</button></div></div></div>';
+      document.body.appendChild(modal);
+      var style=document.createElement('style'); style.id='guruIdCardPreviewStyle'; style.textContent=guruIdCardPrintCss(); document.head.appendChild(style);
+      modal.querySelectorAll('.id-card-theme-btn').forEach(function(btn){btn.addEventListener('click',function(){setGuruIdCardTheme(btn.getAttribute('data-theme'));});});
+    }
+    var profile=globalPrintSchoolProfile||{}, schoolName=String(profile['Nama Madrasah']||'MAS DARUL ULUM'), logo=String(profile['Logo']||(document.getElementById('profLogoBase64')||{}).value||'');
+    var d=guruIdCardData(guru), qr=document.getElementById('guruIdCardPreviewQr');
+    var staging=document.createElement('div'); staging.style.cssText='position:fixed;left:-10000px;top:0'; document.body.appendChild(staging);
+    var qrNode=document.createElement('div'); staging.appendChild(qrNode);
+    try{new QRCode(qrNode,{text:d.token,width:76,height:76,correctLevel:QRCode.CorrectLevel.M});}catch(e){}
+    window.setTimeout(function(){
+      var qrHtml=qrNode.innerHTML||'<div style="width:54px;height:54px;border:1px solid #111"></div>'; staging.remove();
+      document.getElementById('guruIdCardPreview').outerHTML = guruIdCardMarkup(guru,logo,schoolName,qrHtml,window.masdaBulkGuruIdTheme||'classic').replace('<article','<article id="guruIdCardPreview"');
+      setGuruIdCardTheme(window.masdaBulkGuruIdTheme||'classic');
+      bootstrap.Modal.getOrCreateInstance(modal).show();
+    },250);
   }
   function printAllGuruIdCards() {
     var gurus = (globalMasterData.guru || []).slice();
     if (!gurus.length) { appNotify('Data guru kosong. Tidak ada ID Card untuk dicetak.', 'warning'); return; }
     var valid = gurus.filter(function(g){ return guruIdCardData(g).nip && guruIdCardData(g).token; });
     if (!valid.length) { appNotify('Tidak ada guru dengan NIP/QR Token yang valid.', 'warning'); return; }
-    var theme = chooseGuruIdCardTheme();
-    if (!theme) return;
+    var theme = window.masdaBulkGuruIdTheme || 'classic';
     if (!window.confirm('Cetak ID Card untuk ' + valid.length + ' guru dengan desain ' + theme.toUpperCase() + '? Pastikan printer dan ukuran kertas sudah sesuai.')) return;
     buildGuruIdCardPrintWindow(valid, 'Cetak Semua ID Card Guru siMADU', theme);
   }
@@ -6453,7 +6492,7 @@
     var modal = document.getElementById('studentIdCardModal');
     if (!modal) {
       modal = document.createElement('div'); modal.id = 'studentIdCardModal'; modal.className = 'modal fade'; modal.tabIndex = -1;
-      modal.innerHTML = '<div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">ID Card Siswa</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="id-card-theme-picker d-flex flex-wrap justify-content-center gap-2 mb-3"><button type="button" class="id-card-theme-btn active" data-theme="blue" onclick=&quot;setStudentIdCardTheme(\'blue\')&quot;>🔵 Navy Modern</button><button type="button" class="id-card-theme-btn" data-theme="purple" onclick=&quot;setStudentIdCardTheme(\'purple\')&quot;>🟡 Biru-Gold Elegan</button><button type="button" class="id-card-theme-btn" data-theme="green" onclick=&quot;setStudentIdCardTheme(\'green\')&quot;>🟢 Hijau Islami</button></div><div id="studentIdCardPrint" class="student-id-card theme-blue mx-auto"><div class="id-school-head"><img id="idCardSchoolLogo" class="id-school-logo" alt="Logo Madrasah"><div><div id="idCardSchoolName">MADRASAH ALIYAH DARUL AMIN</div><div class="opacity-75" style="font-size:8px;margin-top:3px">KARTU IDENTITAS SISWA</div></div></div><img id="idCardPhoto" class="id-student-photo" alt="Foto siswa"><div class="text-center"><div id="idCardName" class="id-student-name"></div><div class="id-student-tag">SISWA / SISWI</div></div><div class="id-card-bottom"><div class="id-meta"><div><b>NISN</b><br><span id="idCardNisn"></span></div><div style="margin-top:3px"><b>KELAS</b><br><span id="idCardKelas"></span></div></div><div class="id-qr"><div id="idCardQr"></div></div></div></div></div><div class="modal-footer"><button class="btn btn-primary" onclick="window.print()"><i class="bi bi-printer me-1"></i>Cetak ID Card</button></div></div></div>';
+      modal.innerHTML = '<div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">ID Card Siswa</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="id-card-theme-picker d-flex flex-wrap justify-content-center gap-2 mb-3"><button type="button" class="id-card-theme-btn active" data-theme="classic" onclick=&quot;setStudentIdCardTheme(\'classic\')&quot;>🔷 Biru Klasik (Utama)</button><button type="button" class="id-card-theme-btn" data-theme="blue" onclick=&quot;setStudentIdCardTheme(\'blue\')&quot;>🔵 Navy Modern</button><button type="button" class="id-card-theme-btn" data-theme="purple" onclick=&quot;setStudentIdCardTheme(\'purple\')&quot;>🟡 Biru-Gold Elegan</button><button type="button" class="id-card-theme-btn" data-theme="green" onclick=&quot;setStudentIdCardTheme(\'green\')&quot;>🟢 Hijau Islami</button></div><div id="studentIdCardPrint" class="student-id-card theme-classic mx-auto"><div class="id-school-head"><img id="idCardSchoolLogo" class="id-school-logo" alt="Logo Madrasah"><div><div id="idCardSchoolName">MADRASAH ALIYAH DARUL AMIN</div><div class="opacity-75" style="font-size:8px;margin-top:3px">KARTU IDENTITAS SISWA</div></div></div><img id="idCardPhoto" class="id-student-photo" alt="Foto siswa"><div class="text-center"><div id="idCardName" class="id-student-name"></div><div class="id-student-tag">SISWA / SISWI</div></div><div class="id-card-bottom"><div class="id-meta"><div><b>NISN</b><br><span id="idCardNisn"></span></div><div style="margin-top:3px"><b>KELAS</b><br><span id="idCardKelas"></span></div></div><div class="id-qr"><div id="idCardQr"></div></div></div></div></div><div class="modal-footer"><button class="btn btn-primary" onclick="window.print()"><i class="bi bi-printer me-1"></i>Cetak ID Card</button></div></div></div>';
       document.body.appendChild(modal);
       modal.querySelectorAll('.id-card-theme-btn').forEach(function(btn) {
         btn.addEventListener('click', function() { setStudentIdCardTheme(btn.getAttribute('data-theme') || 'blue'); });
@@ -6473,7 +6512,7 @@
     document.getElementById('idCardKelas').textContent = s[2] || '-';
     var qr = document.getElementById('idCardQr'); qr.innerHTML = '';
     new QRCode(qr, {text: 'MASDA-' + String(s[0]), width: 68, height: 68, correctLevel: QRCode.CorrectLevel.M});
-    setStudentIdCardTheme('blue');
+    setStudentIdCardTheme('classic');
     bootstrap.Modal.getOrCreateInstance(modal).show();
   }
 
