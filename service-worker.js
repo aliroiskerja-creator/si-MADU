@@ -1,14 +1,13 @@
 /* siMADU PWA service worker. API dan data dinamis tidak pernah disimpan ke cache. */
 'use strict';
-const CACHE_NAME = 'simadu-shell-v7-idcard-selector';
+const CACHE_NAME = 'simadu-shell-v26-brand-refresh';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
-  '/icons/icon-512-maskable.png',
-  '/assets/login-gradient-bg-v2.jpg'
+  '/icons/icon-512-maskable.png'
 ];
 
 self.addEventListener('install', event => {

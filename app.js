@@ -50,16 +50,16 @@ function showApp(user) {
 function showLogin(message='') { $('appScreen').classList.add('d-none');$('loginScreen').classList.remove('d-none');if(message)setLoginMessage(message,'error'); }
 async function loadDashboard(){
   try{const result=await api('dashboard',{sessionToken:getToken()});if(!result.success){if(result.code==='SESSION_EXPIRED'){clearSession();showLogin(result.message||'Sesi berakhir. Silakan masuk kembali.');return;}throw new Error(result.message||'Dashboard tidak dapat dimuat.');}
-    const d=result.data||{};$('statSiswa').textContent=Number(d.siswa||0).toLocaleString('id-ID');$('statGuru').textContent=Number(d.guru||0).toLocaleString('id-ID');$('statKelas').textContent=Number(d.kelas||0).toLocaleString('id-ID');$('dashboardMessage').textContent='Data ringkasan berhasil dimuat dari Google Sheets Si MasDA.';
+    const d=result.data||{};$('statSiswa').textContent=Number(d.siswa||0).toLocaleString('id-ID');$('statGuru').textContent=Number(d.guru||0).toLocaleString('id-ID');$('statKelas').textContent=Number(d.kelas||0).toLocaleString('id-ID');$('dashboardMessage').textContent='Data ringkasan berhasil dimuat dari Google Sheets siMADU.';
   }catch(err){$('dashboardMessage').textContent=err.message||'Gagal memuat dashboard.';}
 }
 $('loginForm').addEventListener('submit',async event=>{
-  event.preventDefault();const username=$('username').value.trim(),password=$('password').value;const button=$('loginForm').querySelector('button[type="submit"]');button.disabled=true;button.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Memeriksa akun…';setLoginMessage('Menghubungkan ke Si MasDA…');
+  event.preventDefault();const username=$('username').value.trim(),password=$('password').value;const button=$('loginForm').querySelector('button[type="submit"]');button.disabled=true;button.innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Memeriksa akun…';setLoginMessage('Menghubungkan ke siMADU…');
   try{const result=await api('login',{username,password});if(!result.success){setLoginMessage(result.message||'Username atau password salah.','error');return;}saveSession(result);$('password').value='';showApp(result);}
   catch(err){setLoginMessage((err.message||'Gagal login.')+' Periksa deployment Apps Script dan variabel MASDA_GAS_URL di Vercel.','error');}
   finally{button.disabled=false;button.innerHTML='Masuk <i class="ti ti-arrow-right ms-1"></i>';}
 });
-$('logoutBtn').addEventListener('click',async()=>{const token=getToken(),button=$('logoutBtn');button.disabled=true;try{if(token)await api('logout',{sessionToken:token});}catch(_){}clearSession();button.disabled=false;showLogin('Anda telah keluar dari Si MasDA.');});
+$('logoutBtn').addEventListener('click',async()=>{const token=getToken(),button=$('logoutBtn');button.disabled=true;try{if(token)await api('logout',{sessionToken:token});}catch(_){}clearSession();button.disabled=false;showLogin('Anda telah keluar dari siMADU.');});
 document.querySelectorAll('#mainNav [data-view]').forEach(link=>link.addEventListener('click',event=>{
   event.preventDefault();const key=link.dataset.view;document.querySelectorAll('#mainNav .nav-link').forEach(a=>a.classList.remove('active'));link.classList.add('active');
   $('view-dashboard').classList.add('d-none');$('view-master').classList.add('d-none');$('view-generic').classList.add('d-none');$('pageTitle').textContent=menuLabels[key]||'Modul';
